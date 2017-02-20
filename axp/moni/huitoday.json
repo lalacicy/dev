@@ -1,0 +1,54 @@
+{
+"all" : [
+{
+  "id": "3207",
+  "size": "7",
+  "img": "img/3207.jpg",
+  "details": [
+  {"username" : "zhangsan","begintime" : "13:00","endtime" : "14:00","date" : "2017-02-17"}
+
+  
+  ]
+}
+,{
+	"id": "3201",
+	  "size": "7",
+  "img": "img/3207.jpg",
+  "details": [
+  {"username" : "zhangsan","begintime" : "13:00","endtime" : "14:00","date" : "2017-02-17"}
+  ,{"username" : "zhgsan","begintime" : "12:00","endtime" : "13:00","date" : "2017-02-17"}
+  ,{"username" : "lisan","begintime" : "10:00","endtime" : "11:00","date" : "2017-02-17"}
+  ,{"username" : "zwansan","begintime" : "09:00","endtime" : "09:30","date" : "2017-02-17"}
+  ]
+}
+,{
+	"id": "3208",
+	  "size": "7",
+  "img": "img/3207.jpg",
+  "details": [
+  {"username" : "zhangsan","begintime" : "13:00","endtime" : "14:00","date" : "2017-02-17"}
+  ,{"username" : "zhgsan","begintime" : "12:00","endtime" : "13:00","date" : "2017-02-17"}
+  ,{"username" : "lisan","begintime" : "10:00","endtime" : "11:00","date" : "2017-02-17"}
+  ,{"username" : "zwansan","begintime" : "09:00","endtime" : "09:30","date" : "2017-02-17"}
+  ]
+}
+,{
+	"id": "3206",
+	  "size": "7",
+  "img": "img/3207.jpg",
+  "details": []
+}
+,{
+	"id": "3209",
+	  "size": "7",
+  "img": "img/3207.jpg",
+  "details": []
+}
+,{
+	"id": "3200",
+	  "size": "7",
+  "img": "img/3207.jpg",
+  "details": []
+}
+]
+}

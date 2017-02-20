@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+		<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<title>axp</title>
+	</head>
+
+	<body >
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-3"><img src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top_ca79a146.png"/></div>
+				<div class="col-xs-9"></div>
+			</div>
+
+			<nav class="navbar navbar-inverse">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<a class="navbar-brand">bankcomm</a>
+					</div>
+					<ul class="nav navbar-nav">
+						<li>
+							<a href="#">home</a>
+						</li>
+						<li>
+							<a href="#">page1</a>
+						</li>
+						<li>
+							<a href="#">page2</a>
+						</li>
+						<li>
+							<a href="#">page3</a>
+						</li>
+						<li>
+							<a href="#">page4</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+			<div id="content"class="row">
+				<div id="left" class="col-xs-3"></div>
+				<div id="right" class="col-xs-9"></div>
+			</div>
+			
+		</div>
+		<script>
+			var today=new Date();
+			var nav_li=$("li");
+			nav_li.click(xja);
+			function suss(){
+				console.log("success")
+			}
+			function fal(){
+				$("#content #left").html("");
+				$("#content #right").html("建设中");
+			}
+			function xja(){
+				$("li").attr("class","");
+				$(this).addClass("active");
+				var str="js/"+$(this).index()+".js";
+				$.getScript(str)
+				.done(suss)
+				.fail(fal);
+			}
+			$("li").first().trigger("click");
+		</script>
+	</body>
+
+</html>
