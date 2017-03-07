@@ -18,7 +18,7 @@ var wk=["日","一","二","三","四","五","六"]
 for(var i=0;i<7;i++){
 	var startTime=time+(i-today.getDay())*1000*60*24*60;
 	var startDate=new Date(startTime).getDate();
-	table+='<th>'+startDate+wk[i]+'</th>';
+	table+='<th width="14.28%" height="5.88%">'+startDate+wk[i]+'</th>';
 }
 table+='</tr></thead><tbody>'
 for(var i=0;i<17;i++){
@@ -62,8 +62,9 @@ function showInfo(hid){
 		for(var j=0;j<infoall.all[i].details.length;j++){
 			var dd=infoall.all[i].details[j].date;
 //			console.log(dd);
-			dd=dd.substr(8,2);
-			var col=today.getDay()-(today.getDate()-dd)+1;
+//			dd=dd.substr(8,2);
+			var temp=new Date(dd);
+			var col=temp.getDay();
 			var shh=infoall.all[i].details[j].begintime.substr(0,2)-9;
 			var smm=infoall.all[i].details[j].begintime.substr(3,2)=="30"?1:0;
 			var ehh=infoall.all[i].details[j].endtime.substr(0,2)-9;
@@ -72,8 +73,8 @@ function showInfo(hid){
 			for(var row=shh*2+smm+1;row<2*ehh+emm+1;row++){
 				console.log(row+""+col);
 //				$("tr:eq("+row+") td:nth-child("+col+")").css("background-color","red");
-//				console.log(col);
-				redgreen[col-1][row-1]=2;
+//				console.log("---"+col);
+				redgreen[col][row-1]=2;
 				
 			}
 		}

@@ -13,14 +13,14 @@
 			temp[j]=1;
 		}
 		for(var j=0;j<hystat.all[i].details.length;j++){
-			var dd=infoall.all[i].details[j].date;
+			var dd=hystat.all[i].details[j].date;
 //			console.log(dd);
 			dd=dd.substr(8,2);
 //			var col=today.getDay()-(today.getDate()-dd)+1;
-			var shh=infoall.all[i].details[j].begintime.substr(0,2)-9;
-			var smm=infoall.all[i].details[j].begintime.substr(3,2)=="30"?1:0;
-			var ehh=infoall.all[i].details[j].endtime.substr(0,2)-9;
-			var emm=infoall.all[i].details[j].endtime.substr(3,2)=="30"?1:0;
+			var shh=hystat.all[i].details[j].begintime.substr(0,2)-9;
+			var smm=hystat.all[i].details[j].begintime.substr(3,2)=="30"?1:0;
+			var ehh=hystat.all[i].details[j].endtime.substr(0,2)-9;
+			var emm=hystat.all[i].details[j].endtime.substr(3,2)=="30"?1:0;
 //			console.log(shh+""+smm+""+ehh+""+emm);
 			for(var row=shh*2+smm+1;row<2*ehh+emm+1;row++){
 //				console.log(row+""+col);

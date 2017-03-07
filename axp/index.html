@@ -9,10 +9,10 @@
 		<title>axp</title>
 	</head>
 
-	<body >
+	<body>
 		<div class="container-fluid">
 			<div class="row">
-				<div class="col-xs-3"><img src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top_ca79a146.png"/></div>
+				<div class="col-xs-3"><img src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top_ca79a146.png" /></div>
 				<div class="col-xs-9"></div>
 			</div>
 
@@ -21,52 +21,60 @@
 					<div class="navbar-header">
 						<a class="navbar-brand ">交通银行</a>
 					</div>
-					<ul class="nav navbar-nav">
+					<ul class="nav navbar-nav" id="fk">
 						<li>
-							<a href="#">会议室</a>
+							<a href="javascript:void(0)">会议室</a>
 						</li>
 						<li>
-							<a href="#">page1</a>
+							<a href="javascript:void(0)">page1</a>
 						</li>
 						<li>
-							<a href="#">page2</a>
+							<a href="javascript:void(0)">page2</a>
 						</li>
 						<li>
-							<a href="#">page3</a>
+							<a href="javascript:void(0)">page3</a>
 						</li>
 						<li>
-							<a href="#">page4</a>
+							<a href="javascript:void(0)">page4</a>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li>
+							<a href="javascript:void(0)" onclick="$.getScript('js/login.js')">sing&nbsp;in</a>
 						</li>
 					</ul>
 				</div>
 			</nav>
-			<div id="content"class="row">
+			<div id="content" class="row">
 				<div id="left" class="col-xs-3"></div>
 				<div id="right" class="col-xs-9"></div>
 			</div>
-			
+
 		</div>
+
 		<script>
-			var today=new Date();
-			var nav_li=$("li");
+			var today = new Date();
+			var nav_li = $("#fk li");
 			nav_li.click(xja);
-			function suss(){
+
+			function suss() {
 				console.log("success")
 			}
-			function fal(){
+
+			function fal() {
 				$("#content #left").html("");
 				$("#content #right").html("建设中");
 			}
-			function xja(){
-				$("li").attr("class","");
+
+			function xja() {
+				$("li").attr("class", "");
 				$(this).addClass("active");
-				var str="js/"+$(this).index()+".js";
+				var str = "js/" + $(this).index() + ".js";
 				$.getScript(str)
-				.done(suss)
-				.fail(fal);
+					.done(suss)
+					.fail(fal);
 			}
 			$("li").first().trigger("click");
-			
 		</script>
 	</body>
 
