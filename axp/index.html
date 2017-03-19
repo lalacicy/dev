@@ -54,27 +54,18 @@
 
 		<script>
 			var today = new Date();
-			var nav_li = $("#fk li");
-			nav_li.click(xja);
-
-			function suss() {
-				console.log("success")
-			}
-
-			function fal() {
-				$("#content #left").html("");
-				$("#content #right").html("建设中");
-			}
-
+			$("#fk li").click(xja);
 			function xja() {
 				$("li").attr("class", "");
 				$(this).addClass("active");
 				var str = "js/" + $(this).index() + ".js";
 				$.getScript(str)
-					.done(suss)
-					.fail(fal);
+					.fail(function() {
+						$("#content #left").html("");
+						$("#content #right").html("建设中");
+					});
 			}
-			$("li").first().trigger("click");
+			$("#fk li").first().trigger("click");
 		</script>
 	</body>
 
