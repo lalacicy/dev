@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
+		<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="js/bootstrap-datetimepicker.min.js"></script>
+		<link rel="stylesheet" href="css/bootstrap-datetimepicker.min.css" />
+		<link type="text/less" rel="stylesheet/less" href="build/build_standalone.less" />
+		<script>
+			less = {
+				env: "development",
+				async: false,
+				fileAsync: false,
+				poll: 1000,
+				functions: {},
+				dumpLineNumbers: "comments",
+				relativeUrls: false,
+				rootpath: ":/a.com/"
+			};
+		</script>
+		<script type="text/javascript" src="js/less.min.js"></script>
+		<title>axp</title>
+		<style>
+			#profl * {
+				clear: both;
+				display: block;
+				margin: auto;
+				text-align: center;
+			}
+			
+			#profile {
+				margin-top: 30px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			<div class="row-fluid" id="profile">
+				<div class="col-xs-3" id="profl">
+					<img alt="140x140" src="moni/vuejs.png" class="img-circle" width="160px" height="160px" />
+					<span id="nickname1">nicheng</span>
+					<button type="button"><a href="javascript:void(0)">上传照片</a></button>
+				</div>
+				<div class="col-xs-9">
+					<form class="form-horizontal" id="profr" action="javascript:void(0)">
+						<div class="control-group">
+							<label>昵称</label>
+							<div>
+								<input type="text" id="nickname2" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label>姓名</label>
+							<div class="controls">
+								<input type="text" id="username" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label>性别</label>
+							<div class="controls">
+								<form action="javascritp:void(0)" method="post">
+									<label>男</label><input type="radio" value="male" name="sex" />
+									<label>女</label><input type="radio" value="female" name="sex" />
+								</form>
+							</div>
+						</div>
+						<div class="control-group">
+							<label>生日</label>
+							<div class="controls">
+								<div id="birthday"><input type="text" value="2012-05-15 21:05" id="datetimepicker" data-date-format="yyyy-mm-dd hh:ii"></div>
+							</div>
+						</div>
+						<div class="control-group">
+							<label>考勤用户名</label>
+							<div class="controls">
+								<input type="text" id="UNAME" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label>考勤密码</label>
+							<div class="controls">
+								<input type="text" id="UPASSWORD" />
+							</div>
+						</div>
+						<div class="control-group">
+							<label>邮箱</label>
+							<div class="controls">
+								<input type="text" disabled="true" id="email" />
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="controls">
+								<button type="submit" id="btnsub"><a href="javascript:void(0)">提交更改</a></button>
+								<button><a href="index.html">返回</a></button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<script>
+			query();
+
+			function query() {
+				$.ajax({
+					type: "get",
+					url: "http://localhost:3000/profilequery",
+					async: true,
+					dataType: "jsonp",
+					jsonpCallback: "qur",
+					success: function(json) {
+						$("#nickname1").html(json.nickname);
+						$("#nickname2").val(json.nickname);
+						$("#username").val(json.username);
+						$("#birthday").val(json.birthday);
+						$("#UNAME").val(json.UNAME);
+						$("#UPASSWORD").val(json.UPASSWORD);
+						$("#email").val(json.email);
+						if(json.sex == "1") {
+							$("input:radio:first").attr("checked", "true");
+						}
+						if(json.sex == "0") {
+							$("input:radio:last").attr("checked", "true");
+						}
+					}
+				});
+			};
+
+			function update() {
+				$.ajax({
+					type: "get",
+					url: "http://localhost:3000/profileupdate",
+					async: true,
+					data: {
+						nickname: $("#nickname2").val(),
+						username: $("#username").val(),
+						birthday: $("#birthday").val(),
+						UNAME: $("#UNAME").val(),
+						UPASSWORD: $("#UPASSWORD").val(),
+						sex: $("input:radio:checked").val()
+					},
+					dataType: "jsonp",
+					jsonpCallback: "query",
+					success: function(json) {
+						if(json.success == '0') alter('更改成功');
+						query();
+					}
+				})
+			}
+			$("#btnsub").click(update);
+			$('#datetimepicker').datetimepicker();
+		</script>
+	</body>
+
+</html>
