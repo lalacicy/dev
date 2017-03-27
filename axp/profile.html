@@ -71,7 +71,7 @@
 						<div class="control-group">
 							<label>生日</label>
 							<div class="controls">
-								<div id="birthday"><input type="text" value="2012-05-15 21:05" id="datetimepicker" data-date-format="yyyy-mm-dd hh:ii"></div>
+								<div id="birthday"><input type="text" value="1999-01-01" id="datetimepicker" data-date-format="yyyy-mm-dd hh:ii"></div>
 							</div>
 						</div>
 						<div class="control-group">
@@ -116,7 +116,7 @@
 						$("#nickname1").html(json.nickname);
 						$("#nickname2").val(json.nickname);
 						$("#username").val(json.username);
-						$("#birthday").val(json.birthday);
+						$("#birthday input").val(json.birthday.substring(0,10));
 						$("#UNAME").val(json.UNAME);
 						$("#UPASSWORD").val(json.UPASSWORD);
 						$("#email").val(json.email);
@@ -138,10 +138,10 @@
 					data: {
 						nickname: $("#nickname2").val(),
 						username: $("#username").val(),
-						birthday: $("#birthday").val(),
+						birthday: $("#birthday input").val(),
 						UNAME: $("#UNAME").val(),
 						UPASSWORD: $("#UPASSWORD").val(),
-						sex: $("input:radio:checked").val()
+						sex: $("input:radio:checked").val()=='male'?'1':'0'
 					},
 					dataType: "jsonp",
 					jsonpCallback: "query",
@@ -152,7 +152,10 @@
 				})
 			}
 			$("#btnsub").click(update);
-			$('#datetimepicker').datetimepicker();
+			$('#datetimepicker').datetimepicker({
+				minView: "2",
+				format: "yyyy-mm-dd"
+			});
 		</script>
 	</body>
 

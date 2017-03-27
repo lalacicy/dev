@@ -93,7 +93,7 @@
 			success: function(json) {
 				if(json.success == "0") {
 					$('#login_form').html(json.info);
-					$('.nav.navbar-nav.navbar-right li').html('<a href="javascript:void(0)" onclick="$.getScript(\'js/logout.js\')">sing&nbsp;out</a>');
+					$('.nav.navbar-nav.navbar-right li').html('<a class="drdropdown-toggle" data-toggle="dropdown"><img href="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top_ca79a146.png" width="20px" height="20px"></img><span class="caret"></span></a><ul class="dropdown-menu"><li><a href="profile.html">profile</a></li><hr><li><a href="javascript:void(0)" onclick="$.getScript(\'js/logout.js\')">logout</a></li> </ul> ');
 					$(".nav.navbar-nav li").each(function() {
 						if($(this).hasClass('active')) {
 							//console.log('true');
