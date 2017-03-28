@@ -33,11 +33,14 @@
 			});
 		}
 	});
-
+	var tst=true;
 	function register() {
+		
 		var nickname = $("#r_user_name").val();
 		var pass = $("#r_password").val();
 		var email = $("#r_email").val();
+		if(tst==false)return;
+		tst=false;
 		$.ajax({
 			type: "get",
 			url: "http://localhost:3000/register",
@@ -50,6 +53,7 @@
 			dataType: "jsonp",
 			jsonpCallback: "reg",
 			success: function(json) {
+				tst=true;
 				var btn = '<button>confrin</button>';
 				if(json.success == "0") {
 					$('#login_form').html(json.info);
@@ -58,6 +62,18 @@
 					var st = setInterval(function() {
 						if(t == 0) {
 							clearInterval(st);
+							$('#wrapper').remove();
+							$('#logincss').remove();
+						}
+						var tjson=$.getJSON('http://localhost:3000/login');
+						if(tjson.success=='3'){
+							clearInterval(st);
+							$(".nav.navbar-nav li").each(function() {
+						if($(this).hasClass('active')) {
+							//console.log('true');
+							$(this).trigger('click');
+						}
+					});
 							$('#wrapper').remove();
 							$('#logincss').remove();
 						}
@@ -70,9 +86,11 @@
 				}
 			},
 			error: function(err) {
+				tst=true;
 				console.log(err);
 			}
 		});
+		
 		//		$('#wrapper').remove();
 		//		$('#logincss').remove();
 	};
