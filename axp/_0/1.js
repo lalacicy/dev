@@ -28,8 +28,9 @@ for(var i=0;i<17;i++){
 	}
 	table+='</tr>'
 }
-table+='</tbody></table></div><div class="col-sm-12"><button id="submit" style="float:right;margin-right:16px" class="btn btn-info">提交</button><button id="flush" style="float:right;margin-right:16px" class="btn btn-info">刷新</button></div></div>';
+table+='</tbody></table></div><div class="col-sm-12"><button id="submit" style="float:right;margin-right:16px" class="btn btn-info">提交</button><button id="flush" style="float:right;margin-right:16px" class="btn btn-info">撤销</button></div></div>';
 right.append(table);
+right.append('<div id="confirm" style="position: absolute;top: 50%;left: 50%;width:10px;height:10px"></div>');
 //处理canvas
 	var cav=document.getElementById("cav");
 	var ctx=cav.getContext("2d");
@@ -71,8 +72,12 @@ function showInfo(hid){
 			var emm=infoall.all[i].details[j].endtime.substr(3,2)=="30"?1:0;
 			console.log(shh+""+smm+""+ehh+""+emm);
 			for(var row=shh*2+smm+1;row<2*ehh+emm+1;row++){
-				console.log(row+""+col);
-//				$("tr:eq("+row+") td:nth-child("+col+")").css("background-color","red");
+//				console.log(row+""+col);
+				$("tr:eq("+row+") td:nth-child("+(col+1)+")").webuiPopover({
+					title:infoall.all[i].details[j].username,
+					content:'Content',
+					trigger:'hover'//values:  click,hover,manual
+				});
 //				console.log("---"+col);
 				redgreen[col][row-1]=2;
 				
@@ -88,7 +93,7 @@ function hyclick(){
 	$(this).css("background-color","#5CB85C");
 	for(var t=0;t<7;t++){
 		for(var s=0;s<17;s++){
-			console.log(redgreen[t][s]);
+//			console.log(redgreen[t][s]);
 			redgreen[t][s]=0;
 			
 		}
@@ -236,6 +241,15 @@ $("#submit").click(function(){
 			
 		}
 	}
+	$('#confirm').webuiPopover({
+					arrow:false,
+					placement:'left',
+					closeable:true,
+					title:'confirm info',
+					content:'<label>info</label>&nbsp<input type="text"></input>',
+					trigger:'manual'//values:  click,hover,manual
+				});
+	$('#confirm').webuiPopover('show');    
 	drawcolor();
 });
 }())
