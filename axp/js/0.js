@@ -34,13 +34,7 @@
 		}
 	});
 
-	//得到会议室json数据，没有错误处理。
 
-	$.getJSON("moni/huiyishi.json", function(result) {
-		//		console.log("huiyishi_all_info_get");
-		infoall = result;
-		//		console.log(infoall);
-	});
 
 
 	function show() {

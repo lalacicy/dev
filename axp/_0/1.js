@@ -1,5 +1,15 @@
 //会议室预定
-(function() {
+(function(){
+$.ajax({
+	type:"get",
+	url:"http://localhost:3000/inquire",
+	async: true,
+	data: {
+		date:new Date()
+	},
+	dataType: "jsonp",
+	jsonpCallback: "inquire",
+	success:function(infoall) {
 		var right = $("#content #right");
 		right.html("");
 		var btngop = '<button class="btn btn-success disabled">会议室</button>&nbsp<div id="hybtn" class="btn-group">';
@@ -74,8 +84,8 @@
 					for(var row = shh * 2 + smm + 1; row < 2 * ehh + emm + 1; row++) {
 						//				console.log(row+""+col);
 						$("tr:eq(" + row + ") td:nth-child(" + (col + 1) + ")").webuiPopover({
-							title: infoall.all[i].details[j].username,
-							content: infoall.all[i].details[j].username,
+							title: infoall.all[i].details[j].email,
+							content: infoall.all[i].details[j].beizhu,
 							trigger: 'hover' //values:  click,hover,manual
 						});
 						//				console.log("---"+col);
@@ -249,9 +259,7 @@
 			}
 			drawcolor();
 		});
-		$("#submit").click(function() {
-//			console.log(pingjie());
-			$('#confirm').webuiPopover({
+		$('#confirm').webuiPopover({
 				arrow: false,
 				placement: 'left',
 				closeable: true,
@@ -259,8 +267,14 @@
 				content: '<label>时间</label>&nbsp<textarea height="300px" id="infohb"></textarea><br><label>备注</label>&nbsp<input id="beizhu" type="text"></input><br><button id="submitconfirm" class="btn btn-info">确认</button>',
 				trigger: 'manual' //values:  click,hover,manual
 			});
+		$("#submit").unbind('click');
+		$("#submit").click(function() {
+//			console.log(pingjie());
+//			alert('test');
 			$('#confirm').webuiPopover('show');
 			$("#infohb").val(pingjie());
+//			console.log(pingjie());
+			$("#submitconfirm").unbind('click');
 			$("#submitconfirm").click(function() {
 				$('#confirm').webuiPopover('hide');
 				$.ajax({
@@ -365,4 +379,6 @@
 			return result;
 			}
 
-		}())
+		}
+});
+}())	
