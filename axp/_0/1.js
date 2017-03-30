@@ -75,7 +75,7 @@
 					//				console.log(row+""+col);
 					$("tr:eq(" + row + ") td:nth-child(" + (col + 1) + ")").webuiPopover({
 						title: infoall.all[i].details[j].username,
-						content: 'Content',
+						content: infoall.all[i].details[j].username,
 						trigger: 'hover' //values:  click,hover,manual
 					});
 					//				console.log("---"+col);
@@ -88,10 +88,12 @@
 		}
 		if(i == infoall.all.length) drawcolor();
 	}
+	var poi = null;
 
 	function hyclick() {
 		$("#hybtn button").css("background-color", "");
 		$(this).css("background-color", "#5CB85C");
+		poi = $(this).html();
 		for(var t = 0; t < 7; t++) {
 			for(var s = 0; s < 17; s++) {
 				//			console.log(redgreen[t][s]);
@@ -167,6 +169,7 @@
 		tempx = Math.floor(mx / width) * width;
 		var tempy = Math.floor(my / height) * height;
 		if(tempx < 0 || tempy < 0) return false;
+		if(Math.floor(mx / width) > 6 || Math.floor(my / height) > 16) return false;
 		if(redgreen[Math.floor(mx / width)][Math.floor(my / height)] == 2) return false;
 		ctx.fillRect(tempx, tempy, width, height);
 		redgreen[Math.floor(mx / width)][Math.floor(my / height)] = 1
@@ -193,6 +196,7 @@
 		grd.addColorStop(1, "white");
 		ctx.fillStyle = grd;
 		if(tempx < 0 || tempy < 0) return false;
+		if(Math.floor(mx / width) > 6 || Math.floor(my / height) > 16) return false;
 		if(redgreen[Math.floor(tempx / width)][Math.floor(my / height)] == 2) return false;
 		ctx.fillRect(tempx, tempy, width, height);
 		redgreen[Math.floor(tempx / width)][Math.floor(my / height)] = 1;
@@ -251,20 +255,58 @@
 			placement: 'left',
 			closeable: true,
 			title: 'confirm info',
-			content: '<label>备注</label>&nbsp<input type="text"></input><br><button id="submitconfirm" class="btn btn-info">确认</button>',
+			content: '<label>备注</label>&nbsp<input id="beizhu" type="text"></input><br><button id="submitconfirm" class="btn btn-info">确认</button>',
 			trigger: 'manual' //values:  click,hover,manual
 		});
 		$('#confirm').webuiPopover('show');
 		$("#submitconfirm").click(function() {
-			for(var t = 0; t < 7; t++) {
-				for(var s = 0; s < 17; s++) {
-					console.log(redgreen[t][s]);
-					if(redgreen[t][s] == 1) redgreen[t][s] = 2;
-
-				}
-			}
-			drawcolor();
 			$('#confirm').webuiPopover('hide');
+			$.ajax({
+				type: 'get',
+				url: 'http://localhost:3000/reservation',
+				async: 'true',
+				data: JSON.stringify(redgreen),
+				dataType: "jsonp",
+				jsonpCallback: "login",
+				success: function(json) {
+					if(json.success == '0') {
+						for(var t = 0; t < 7; t++) {
+							for(var s = 0; s < 17; s++) {
+								console.log(redgreen[t][s]);
+								if(redgreen[t][s] == 1) {
+									redgreen[t][s] = 2;
+									$("tr:eq(" + (s + 1) + ") td:nth-child(" + (t + 1) + ")").webuiPopover({
+										title: $.cookie('email'),
+										content: $("#beizhu").val(),
+										trigger: 'hover' //values:  click,hover,manual
+									});
+								}
+
+							}
+						}
+						drawcolor();
+						$("#beizhu").val('');
+					} else {
+						$("#hybtn button").each(function() {
+							if($(this).html() == poi) {
+								//console.log('true');
+								$(this).trigger('click');
+							}
+						});
+					}
+				},
+				error: function(err) {
+					$("#hybtn button").each(function() {
+						if($(this).html() == poi) {
+							//console.log('true');
+							$(this).trigger('click');
+						}
+					});
+					console.log(err);
+				}
+
+			});
+
 		});
 
 	});
