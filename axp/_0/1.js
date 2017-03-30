@@ -336,7 +336,7 @@
 							var mm = s % 2 == 0 ? ":00" : ":30";
 							begin = ts + mm;
 						}
-						if((redgreen[t][s] == 0 && befor == 1 )) {
+						if(((redgreen[t][s] == 0||redgreen[t][s] == 2) && befor == 1 )) {
 							var ts = "";
 							if(s == 0 || s == 1) {
 								ts = "09"
