@@ -267,7 +267,11 @@
 					type: 'get',
 					url: 'http://localhost:3000/reservation',
 					async: 'true',
-					data: JSON.stringify(redgreen),
+					data: {
+						arrays:JSON.stringify(redgreen),
+						beizhu:$("#beizhu").val(),
+						mid:poi
+					},
 					dataType: "jsonp",
 					jsonpCallback: "login",
 					success: function(json) {
@@ -309,9 +313,9 @@
 					}
 
 				});
-
+				$("#submitconfirm").unbind('click');
 			});
-
+			
 		});
 
 		function pingjie() {
