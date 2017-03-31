@@ -2,10 +2,17 @@
 (function() {
 	var right = $("#content #right");
 	right.html("");
-	$.getJSON("moni/huitoday.json", function(result) {
-		console.log("huiyishi_all_get");
+	$.ajax({
+		type:"get",
+		url:"http://localhost:3000/infotoday",
+		async:true,
+		data: {
+		date:new Date()
+		},
+		dataType: "jsonp",
+		jsonpCallback: "gettoday",
+		success: function(result) {
 		hystat = result;
-	
 	var sta = '<div class="row">';
 	//'<div class="col-sm-6"><img src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superman/img/logo_top_ca79a146.png"><br/><br/></div>'
 	for(var i = 0; i < hystat.all.length; i++) {
@@ -53,5 +60,5 @@
 	}
 	sta += '</div>';
 	right.append(sta);
-	});
+	}});
 }())
